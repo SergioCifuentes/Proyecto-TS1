@@ -5,9 +5,9 @@
  */
 package principal.frontend.gui.calendari_cholquij;
 
-import principal.backend.calendari_cholquij.calcular_fecha.CalcularFecha;
+import escritorio.frontend.calendario_cholquij.fecha.CalcularFecha;
 import principal.backend.manejadores.ManejadorInformacion;
-import principal.frontend.gui.calendari_cholquij.matriz.matrizCholquijFrame;
+import escritorio.frontend.calendario_cholquij.matriz.matrizCholquijFrame;
 
 /**
  *

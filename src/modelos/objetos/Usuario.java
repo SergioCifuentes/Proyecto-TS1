@@ -16,6 +16,8 @@ public class Usuario {
     private String username, password, email, nombre, apellido, telefono;
     private Date nacimiento;
     private int rol;
+    public  static final int ADMIN=1;
+    public  static final int ESTUDIANTE=2;
 
     public Usuario() {
     }

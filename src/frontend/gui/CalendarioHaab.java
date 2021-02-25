@@ -33,7 +33,10 @@ public class CalendarioHaab extends javax.swing.JFrame {
         initComponents();
         InformacionDb accesoInf = new InformacionDb();
         date.setDate(fecha);
-        infHaab.setText(accesoInf.getInformacion("inf_haab_escritorio").getDescripcionEscritorio());
+
+        System.out.println(accesoInf.getInformacion("inf_haab_escritorio"));
+        System.out.println("------");
+        //infHaab.setText(accesoInf.getInformacion("inf_haab_escritorio").getDescripcionEscritorio());
         infKinal.setText(accesoInf.getInformacion("inf_kin_haab_escritorio").getDescripcionEscritorio());
         infWinal.setText(accesoInf.getInformacion("inf_uinal_haab_escritorio").getDescripcionEscritorio());
         escribirFecha();

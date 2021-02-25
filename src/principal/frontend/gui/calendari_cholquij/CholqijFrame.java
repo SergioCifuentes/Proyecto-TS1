@@ -1,7 +1,7 @@
 package principal.frontend.gui.calendari_cholquij;
 
-import principal.backend.calendari_cholquij.matriz.ManejadorDeCalendarioCholqij;
-import principal.backend.calendari_cholquij.matriz.elementos.KinCholqij;
+import escritorio.backend.calendario_cholquij.matriz.ManejadorDeCalendarioCholqij;
+import escritorio.backend.calendario_cholquij.matriz.elementos.KinCholqij;
 
 
 /**

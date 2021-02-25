@@ -13,13 +13,14 @@ import java.util.List;
 import modelos.objetos.FechaCholqij;
 
 /**
- *
+ *asx
  * @author jose_
  */
 public class FechaCholqijDb {
 
     public void crear(FechaCholqij fecha){
         try {
+            
             PreparedStatement statement = ConexionDb.conexion.prepareStatement("INSERT INTO calendariocholqij "
                     + "(nahual,energia,fecha,descripcion) VALUES (?,?,?,?);");
             statement.setInt(1,fecha.getNahual().getId());

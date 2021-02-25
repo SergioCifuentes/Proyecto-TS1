@@ -11,7 +11,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import modelos.database.UsuarioDb;
 import modelos.objetos.Usuario;
-import principal.menu.MenuPrincipal;
+import escritorio.frontend.menu.MenuPrincipal;
 
 
 public class Login extends javax.swing.JFrame {

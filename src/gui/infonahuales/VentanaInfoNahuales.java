@@ -23,7 +23,8 @@ import javax.swing.JTextPane;
 import modelos.database.ConexionDb;
 import modelos.database.NahualDb;
 import modelos.objetos.Nahual;
-import principal.backend.calendari_cholquij.calcular_fecha.CalcularFecha;
+import modelos.objetos.Usuario;
+import escritorio.frontend.calendario_cholquij.fecha.CalcularFecha;
 
 public class VentanaInfoNahuales extends javax.swing.JFrame {
     
@@ -35,10 +36,11 @@ public class VentanaInfoNahuales extends javax.swing.JFrame {
     private JTextPane textPaneSig = new JTextPane();
     private JTextPane textPaneDes = new JTextPane();
     private JLabel labelDescripcion = new JLabel("Descripcion");
-    
+    private Usuario usuario;
     private FondoPanel fondoPanel = new FondoPanel();
     
-    public VentanaInfoNahuales() {
+    public VentanaInfoNahuales(Usuario usuario) {
+        this.usuario=usuario;
         this.setContentPane(fondoPanel);
         initComponents();
         this.setLocationRelativeTo(null);
@@ -71,6 +73,12 @@ public class VentanaInfoNahuales extends javax.swing.JFrame {
         listaNahuales = (ArrayList<Nahual>) nahualDb.getNahuales();
         pintar();
         setPosiciones();
+        
+    }
+    public void verifcarRole(){
+        if (usuario.getRol()==Usuario.ESTUDIANTE) {
+            MenuAdmin.setVisible(false);
+        }
     }
     public void setPosiciones(){
         
@@ -213,6 +221,8 @@ public class VentanaInfoNahuales extends javax.swing.JFrame {
         scrollPane = new javax.swing.JScrollPane();
         panelInfo = new javax.swing.JPanel();
         labelSignificado = new javax.swing.JLabel();
+        MenuAdmin = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -333,10 +343,25 @@ public class VentanaInfoNahuales extends javax.swing.JFrame {
                     .addComponent(btnCalcular))
                 .addGap(49, 49, 49)
                 .addComponent(scrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 344, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(10, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         getContentPane().add(PanelNav, java.awt.BorderLayout.CENTER);
+
+        jMenu1.setText("Editar Informacion");
+        jMenu1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu1MouseClicked(evt);
+            }
+        });
+        jMenu1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenu1ActionPerformed(evt);
+            }
+        });
+        MenuAdmin.add(jMenu1);
+
+        setJMenuBar(MenuAdmin);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -370,13 +395,25 @@ public class VentanaInfoNahuales extends javax.swing.JFrame {
         
     }//GEN-LAST:event_btnCalcularActionPerformed
 
+    private void jMenu1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu1ActionPerformed
+        EditaciondeInformacionNahual editaciondeInformacionNahual= new EditaciondeInformacionNahual(this, rootPaneCheckingEnabled);
+        editaciondeInformacionNahual.setVisible(true);
+    }//GEN-LAST:event_jMenu1ActionPerformed
+
+    private void jMenu1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu1MouseClicked
+        EditaciondeInformacionNahual editaciondeInformacionNahual= new EditaciondeInformacionNahual(this, rootPaneCheckingEnabled);
+        editaciondeInformacionNahual.setVisible(true);
+    }//GEN-LAST:event_jMenu1MouseClicked
+
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuBar MenuAdmin;
     private javax.swing.JPanel PanelNav;
     private javax.swing.JButton botonAnterior;
     private javax.swing.JButton botonSiguiente;
     private javax.swing.JButton btnCalcular;
     private com.toedter.calendar.JDateChooser date;
+    private javax.swing.JMenu jMenu1;
     private javax.swing.JLabel labalIzquierda;
     private javax.swing.JLabel labelDerecha;
     private javax.swing.JLabel labelNombre;
