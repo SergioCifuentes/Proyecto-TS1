@@ -6,7 +6,7 @@
 package principal.frontend.gui.calendari_cholquij;
 
 import escritorio.frontend.calendario_cholquij.fecha.CalcularFecha;
-import principal.backend.manejadores.ManejadorInformacion;
+import escritorio.backend.manejadores.ManejadorInformacion;
 import escritorio.frontend.calendario_cholquij.matriz.matrizCholquijFrame;
 
 /**
@@ -53,7 +53,7 @@ public class FrameCalendario extends javax.swing.JFrame {
         lblTitulo.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
         lblTitulo.setForeground(new java.awt.Color(255, 255, 255));
         lblTitulo.setText("CALENDARIO CHOLQ'IJ");
-        getContentPane().add(lblTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 50, 470, 70));
+        getContentPane().add(lblTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 60, 470, 60));
 
         btnCalendarioCalcularFecha.setBackground(new java.awt.Color(51, 51, 51));
         btnCalendarioCalcularFecha.setFont(new java.awt.Font("Waree", 1, 18)); // NOI18N
@@ -92,55 +92,61 @@ public class FrameCalendario extends javax.swing.JFrame {
         jLabel1.setText(" ");
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 900, 600));
 
-        jPanel1.setBackground(new java.awt.Color(51, 153, 255));
-        jPanel1.setForeground(new java.awt.Color(51, 153, 255));
+        jPanel1.setBackground(new java.awt.Color(106, 248, 47));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        btnFormasDeContar.setBackground(new java.awt.Color(204, 204, 204));
-        btnFormasDeContar.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        btnFormasDeContar.setBackground(new java.awt.Color(134, 134, 134));
+        btnFormasDeContar.setFont(new java.awt.Font("Courier 10 Pitch", 1, 12)); // NOI18N
         btnFormasDeContar.setForeground(new java.awt.Color(0, 0, 0));
         btnFormasDeContar.setText("Formas de Contar");
+        btnFormasDeContar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnFormasDeContar.setOpaque(true);
         btnFormasDeContar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnFormasDeContarActionPerformed(evt);
             }
         });
-        jPanel1.add(btnFormasDeContar, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 10, 150, -1));
+        jPanel1.add(btnFormasDeContar, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 10, 150, 30));
 
-        btnInfCalendarioCholquij.setBackground(new java.awt.Color(204, 204, 204));
-        btnInfCalendarioCholquij.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        btnInfCalendarioCholquij.setBackground(new java.awt.Color(134, 134, 134));
+        btnInfCalendarioCholquij.setFont(new java.awt.Font("Courier 10 Pitch", 1, 12)); // NOI18N
         btnInfCalendarioCholquij.setForeground(new java.awt.Color(0, 0, 0));
         btnInfCalendarioCholquij.setText("Calendario Cholq'ij (Informacion)");
+        btnInfCalendarioCholquij.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnInfCalendarioCholquij.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnInfCalendarioCholquijActionPerformed(evt);
             }
         });
-        jPanel1.add(btnInfCalendarioCholquij, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 10, -1, -1));
+        jPanel1.add(btnInfCalendarioCholquij, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 10, -1, 30));
 
-        btnCalendarioLunar.setBackground(new java.awt.Color(204, 204, 204));
-        btnCalendarioLunar.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        btnCalendarioLunar.setBackground(new java.awt.Color(134, 134, 134));
+        btnCalendarioLunar.setFont(new java.awt.Font("Courier 10 Pitch", 1, 12)); // NOI18N
         btnCalendarioLunar.setForeground(new java.awt.Color(0, 0, 0));
         btnCalendarioLunar.setText("Calendario Lunar");
+        btnCalendarioLunar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnCalendarioLunar.setOpaque(true);
         btnCalendarioLunar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCalendarioLunarActionPerformed(evt);
             }
         });
-        jPanel1.add(btnCalendarioLunar, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 140, -1));
+        jPanel1.add(btnCalendarioLunar, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 140, 30));
 
-        btnDias.setBackground(new java.awt.Color(204, 204, 204));
-        btnDias.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        btnDias.setBackground(new java.awt.Color(134, 134, 134));
+        btnDias.setFont(new java.awt.Font("Courier 10 Pitch", 1, 12)); // NOI18N
         btnDias.setForeground(new java.awt.Color(0, 0, 0));
         btnDias.setText("Dias");
+        btnDias.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnDias.setOpaque(true);
         btnDias.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnDiasActionPerformed(evt);
             }
         });
-        jPanel1.add(btnDias, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 10, 130, -1));
+        jPanel1.add(btnDias, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 10, 130, 30));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 900, 50));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 900, 70));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

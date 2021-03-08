@@ -140,7 +140,7 @@ public class CalcularFecha extends javax.swing.JDialog {
         lblImgLVL.setIcon(manejadorCalcular.getIconLvl(nivel(timeCholqij(date.getCalendar().getTime().getTime()))));
     }//GEN-LAST:event_btnCalcularActionPerformed
 
-    public int nahual(int cont){
+    public static int nahual(int cont){
         System.out.println("Contador " + cont);
         int contador = cont;
         int contadorNahual = 6;
@@ -163,7 +163,7 @@ public class CalcularFecha extends javax.swing.JDialog {
         
     }
     
-    public int nivel(int cont){
+    public static int nivel(int cont){
         System.out.println("Contador " + cont);
         int contador = cont;
         int contadorNahual = 4;
@@ -186,7 +186,7 @@ public class CalcularFecha extends javax.swing.JDialog {
         
     }
     
-    public int timeCholqij(long date){
+    public static int timeCholqij(long date){
         try {
             String string = "Nov 15, 2020 00:00:00 AM";
             SimpleDateFormat sdf = new SimpleDateFormat("MMM d, yyyy h:mm:ss a", Locale.ROOT);

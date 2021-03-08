@@ -52,13 +52,11 @@ public class EditaciondeInformacionNahual extends javax.swing.JDialog {
 
         jLabel2.setText("Significado:");
 
-        infHaab.setEditable(false);
         infHaab.setText("El s├¡mbolo del hombre y de la humanidad, de la realizaci├│n del hombre. S├¡mbolo de continuidad con el pasado, como se ha englobado dentro del ritual. ÔÇ£Un buen d├¡a, de la perpetraci├│n de las ceremonias y costumbres de nuestros antepasados. Es el d├¡a en que se realiza aquella parte del matrimonio en que se pide la novia, y el casamiento cuarenta d├¡as despu├®s, en un d├¡a BÔÇÖatzÔÇÖ con un n├║mero m├ís alto. En 8 BÔÇÖatzÔÇÖ se presenta p├║blicamente el aprendiz de sacerdote maya, y cuarenta d├¡as despu├®s se realiza el agradecimiento. Simboliza el tiempo. Nuestros antepasados, los mayas representaron el tiempo imagin├índolo como un hilo enrollado a un carrizo que se encuentra debajo de la tierra. Este hilo se va desenrollando a medida que el tiempo pasa. La historia se teje con el tiempo, as├¡ como el hilo teje los vestidos. El ciclo Nuevo Maya, WajxaqibÔÇÖ BÔÇÖatzÔÇÖ, en la ceremonia se ameniza con marimba y se baila alrededor del fuego. El BÔÇÖatzÔÇÖ amarra y desata. Se le dice BÔÇÖatzÔÇÖ porque gira. Y es el talento del ser humano.");
         jScrollPane4.setViewportView(infHaab);
 
         jLabel3.setText("Descripcion:");
 
-        infHaab1.setEditable(false);
         infHaab1.setText("HILO, EL D├ìA DEL PRINCIPIO DE LA ENERG├ìA, DEL TIEMPO Y DEL ESPACIO.");
         jScrollPane5.setViewportView(infHaab1);
 
@@ -76,7 +74,7 @@ public class EditaciondeInformacionNahual extends javax.swing.JDialog {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(304, 304, 304)
                         .addComponent(jLabel1)))
-                .addContainerGap(295, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

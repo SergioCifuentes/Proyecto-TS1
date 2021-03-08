@@ -11,7 +11,7 @@ import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import modelos.objetos.Usuario;
-import principal.backend.perfil_usuario.Informacion;
+import escritorio.backend.perfil_usuario.Informacion;
 
 /**
  *

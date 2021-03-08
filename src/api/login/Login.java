@@ -38,6 +38,7 @@ public class Login extends javax.swing.JFrame {
     public void loguear(){
         Usuario usuario = usuarioDb.validacionUsuario(textFieldCorreo.getText(), passFieldContrasenia.getText());
         if(usuario!=null){
+            usuarioDb.ingresarLog(usuario);
             System.out.println("Se logueo xD");
             recordarSesion(usuario);
             menu = new MenuPrincipal(usuario);
@@ -138,7 +139,6 @@ public class Login extends javax.swing.JFrame {
         checkBoxRecordar.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         checkBoxRecordar.setForeground(new java.awt.Color(255, 255, 255));
         checkBoxRecordar.setText("Recordar Sesion");
-        checkBoxRecordar.setOpaque(false);
         checkBoxRecordar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 checkBoxRecordarActionPerformed(evt);
@@ -146,7 +146,7 @@ public class Login extends javax.swing.JFrame {
         });
 
         botonSingIn.setBackground(new java.awt.Color(247, 228, 22));
-        botonSingIn.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        botonSingIn.setFont(new java.awt.Font("Courier 10 Pitch", 1, 12)); // NOI18N
         botonSingIn.setText("SING IN");
         botonSingIn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -157,6 +157,7 @@ public class Login extends javax.swing.JFrame {
         jSeparator1.setBackground(new java.awt.Color(247, 228, 22));
 
         botonSingUp.setBackground(new java.awt.Color(158, 247, 22));
+        botonSingUp.setFont(new java.awt.Font("Courier 10 Pitch", 1, 12)); // NOI18N
         botonSingUp.setText("SING UP");
         botonSingUp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -188,7 +189,7 @@ public class Login extends javax.swing.JFrame {
                                 .addComponent(textFieldCorreo, javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(jLabel28, javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(passFieldContrasenia, javax.swing.GroupLayout.Alignment.LEADING))
-                            .addComponent(botonSingUp))))
+                            .addComponent(botonSingUp, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(54, Short.MAX_VALUE))
         );
         panelSesionLayout.setVerticalGroup(
@@ -211,8 +212,8 @@ public class Login extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 7, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(botonSingUp, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(52, Short.MAX_VALUE))
+                .addComponent(botonSingUp)
+                .addContainerGap(47, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout panelLayout = new javax.swing.GroupLayout(panel);

@@ -3,23 +3,15 @@
  // Obtengo los datos cargados en el formulario de login.
  $email = $_POST['user'];
  $password = $_POST['password'];
-
+include'conexion.php';
   // Datos para conectar a la base de datos.
-  $nombreServidor = "localhost";
-  $nombreUsuario = "administrador";
-  $passwordBaseDeDatos = "Admin.123321";
-  $nombreBaseDeDatos = "LineaTiempo";
  
-  // Crear conexión con la base de datos.
-  $conn = new mysqli($nombreServidor, $nombreUsuario, $passwordBaseDeDatos, $nombreBaseDeDatos);
-  
-  
   // Consulta segura para evitar inyecciones SQL.
-     $result = mysqli_query($conn, "SELECT * FROM Usuario WHERE username = '$email' AND password= '$password'");
+     $result = mysqli_query($conexion, "SELECT * FROM usuario WHERE username = '$email' AND password= '$password'");
      $usuario = $result->fetch_array(MYSQLI_ASSOC);    
      if(mysqli_num_rows($result )>0){
-        $verRango = "SELECT * from Rol WHERE idRol= ".$usuario['rol'];
-        $rangoRS = mysqli_query($conn, $verRango);
+        $verRango = "SELECT * from rol WHERE id= ".$usuario['rol'];
+        $rangoRS = mysqli_query($conexion, $verRango);
         $rango = $rangoRS->fetch_array(MYSQLI_ASSOC); 
         $usuario =  $result->fetch_array(MYSQLI_ASSOC);
         $_SESSION['nombre'] = $nombreUsuario;

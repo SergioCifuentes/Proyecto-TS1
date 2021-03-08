@@ -1,20 +1,18 @@
 <?php
 session_start();
 
-//$conexion = new mysqli("servidor","usuario","clave","bd")
-$conexion = new mysqli("localhost", "administrador", "Admin.123321", "LineaTiempo");
-/*$sql =  "SELECT * FROM (";
-$sql .= "  SELECT MAX(fecha) as fecha, idHechoHistorico as id ";
-$sql .= "  FROM Edicion ";
-$sql .= "  GROUP BY Edicion.idHechoHistorico ";
-$sql .= ") a";
-$sql .= "GROUP BY a.id";
-*/
-$sql = "CALL mostrarHechos";
+//Comprobar que este logueado
+
+if (!isset($_SESSION['nombre'])) {
+    header("Location: ./iniciarSesion.php");
+}
+include './backend/conexion.php';
+if ($conexion->connect_error) {
+    die("Connection failed: " . $conexion->connect_error);
+}
+$sql = "SELECT * FROM hechohistorico;";
 $resultado = $conexion->query($sql);
-$numfilas = $resultado->num_rows;
-echo $numfilas;
-$idhecho = -1;
+
 ?>
 
 <!DOCTYPE html>
@@ -27,28 +25,148 @@ $idhecho = -1;
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
     <link href="css/style.css" rel="stylesheet">
     <link href="css/estiloLineaTiempo.css" rel="stylesheet">
 </head>
 
 <body>
+    <style>
+        .main-container {
+            width: 35%;
+            margin: 100px auto;
+            padding: 20px 20px 60px;
+            -webkit-box-shadow: 13px 10px 5px -4px rgba(0, 0, 0, 0.75);
+            -moz-box-shadow: 13px 10px 5px -4px rgba(0, 0, 0, 0.75);
+            box-shadow: 13px 10px 5px -4px rgba(0, 0, 0, 0.75);
+            background: rgba(0, 0, 0, 0.3);
+            color: black;
+        }
+
+        body {
+            background: url("./img/fondoLineaTiempo.jpg");
+            background-size: cover;
+        }
+
+        .nav-menu>li>a:before {
+            background-color: black;
+        }
+    </style>
     <div>
-        <header id="header" style="background-color: #1C1C1C;">
-            <?php include 'BarradeNavegacion.php'; ?>>
+        <header id="header">
+            <?php include 'BarradeNavegacionDark.php'; ?>
         </header>
     </div>
 
+    <!-- Modal -->
+    <div class="modal" id="myModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title">Evento</h1>
+                </div>
+                <div class="modal-body">
+                    <form method="POST" action="./backend/insertar_hecho.php">
+                        <div class="form-group">
+                            <label for="InputIitulo" class="col-form-label">Título*:</label>
+                            <input type="text" class="form-control" name="titulo" id="InputIitulo" required placeholder="Titulo">
+                        </div>
+                        <div class="form-group">
+                            <label for="InputInicio" class="col-form-label">Año - Inicio*:</label>
+                            <input type="number" class="form-control" name="inicio" id="InputInicio" required placeholder="Año Inicio">
+                            <label for="InputFin" class="col-form-label">Año - Fin*:</label>
+                            <input type="number" class="form-control" name="fin" id="InputFin" required placeholder="Año Fin">
+                        </div>
+                        <div class="form-group">
+                            <label for="InputDescripcion" class="col-form-label">Descripción:</label>
+                            <textarea class="form-control" name="descripcion" id="InputDescripcion" placeholder="Descripción" required></textarea>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary">Agregar</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <br><br><br><br><br>
+    <?php
+    //<!-- Alerta  -->
+    if (isset($_SESSION['agregado'])) {
+        echo '
+        <div class="alert alert-success" style="width: 50%; margin-left: auto; margin-right: auto;" role="alert">
+          <strong>Felicidades</strong>. Se agrego correctamente el hecho historico. 
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>';
+        $_SESSION['agregado'] = null;
+    }
+    ?>
+    <?php
+    //<!-- Alerta  -->
+    if (isset($_SESSION['eliminado'])) {
+        echo '
+        <div class="alert alert-success" style="width: 50%; margin-left: auto; margin-right: auto;" role="alert">
+          <strong>Felicidades</strong>. Se elimino el hecho historico con exito. 
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>';
+        $_SESSION['eliminado'] = null;
+    }
+    ?>
+    <form action="./backend/eliminar_hecho.php" method="post">
+        <input type="hidden" name="idHecho" value="<?php echo $hecho['id'] ?>">
+    </form>
+   
+    
+    
+        <div class="dropdown" >
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+        <?php
+
+if (isset($_SESSION['rango']) && $_SESSION['rango'] == 'ADMIN') {
+
+    echo '<button type="button" class="btn btn-secondary">Agregar Hecho</button>  &nbsp';
+
+    echo '&nbsp &nbsp &nbsp<button type="button" class="btn btn-secondary">Eliminar Hecho</button>';
+}
+?>
+<div class="pull-right">
+<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Categorias
+  </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" href="#">Action</a>
+                <a class="dropdown-item" href="#">Another action</a>
+                <a class="dropdown-item" href="#">Something else here</a>
+                <a class="dropdown-item" href="#">Something else here</a>
+                <a class="dropdown-item" href="#">Something else here</a>
+            </div>
+            <button type="button" class="btn btn-primary">Buscar</button>
+            <button type="button" class="btn btn-success">Refresh</button>
+</div>
+        </div>
+    
     <section>
-        <div class="container" style="padding-top: 120px; height:100px">
+        <div class="container" style="padding-top: 40px; height:100px">
             <div id="myCarousel" class="carousel" data-ride="carousel">
-                <div class="carousel-inner" style="height: 600px; background: url(img/fondo.png);">
+                <div class="carousel-inner" style="height: 700px; background: rgba(0, 0, 0, 0.3);">
                     <?php
                     $num = 0;
                     foreach ($resultado as $hecho) : ?>
                         <?php
                         $sqlCat = "SELECT idHechoHistorico, nombre FROM Categorizar 
-                            inner JOIN Categoria ON Categorizar.idCategoria = Categoria.idCategoria
+                            inner JOIN Categoria ON Categorizar.idCategoria = Categoria.id
                              WHERE Categorizar.idHechoHistorico= " . $hecho['id'];
                         $cat = $conexion->query($sqlCat);
                         $cat1;
@@ -62,31 +180,23 @@ $idhecho = -1;
                             $num = $num + 1;
                             echo '<div class="item " style="height: 600px;">';
                         }
-
                         ?>
-                        <div class="carousel-caption" style=" padding-top: 20px;">
-                            <div style="height: 360px;">
-                                <img id="imagen<?php echo $num ?>" src="https://img.vixdata.io/pd/jpg-large/es/sites/default/files/imj/7-misterios-de-la-cultura-maya-que-despertaran-tu-curiosidad.jpg" alt="Paisaje-02" class="imagen">
-                                <div id="desc<?php echo $num ?>" style="display: none;">
-                                    <div class="card" id="transparencia" style=" padding-top: 25%;">
-                                        <div class="card-body" style="padding-left: 5%;padding-right:5%">
-                                            <h5 class="card-title">Descripcion</h5>
+                        <!--- CARRUSEL -->
+                        <div class="carousel-caption" style=" padding-top: 25px;">
+                            <div id="transparencia">
+                                <h1 class='titulo' style="margin-bottom: 10px; color:black"> <?php echo $hecho['titulo']; ?></h1>
+                                <p class='fecha' style=""> <?php echo date("Y", strtotime($hecho['fechaInicio'])) ?> A <?php echo date("Y", strtotime($hecho['fechaFinalizacion'])) ?></p>
+                            </div>
+                            <div style="height: 400px;">
+                                <div id="desc<?php echo $num ?>">
+                                    <div class="card" id="transparencia" style=" padding-top: 5%;">
+                                        <div class="card-body" style="padding-left: 10%;padding-right:10%">
+
                                             <p class="card-text" style="text-align: justify; "><?php echo $hecho['descripcion'] ?></p>
-                                            <form action="editarLineaTiempo.php" method="post">
-                                                <input  type="hidden"  name="idHecho" value="<?php echo $hecho['id'] ?>" >
-                                                <button type="submit" class="btn btn-primary">Editar</button>
-                                            </form>
 
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div id="transparencia">
-                                <h1 class='titulo' style="margin-bottom: 10px; color:black"> <?php echo $hecho['titulo']; ?></h1>
-                                <p class='fecha' style=""> Fecha: <?php echo date("d/m/Y", strtotime($hecho['fechaInicio'])) ?></p>
-                                <button class="btn btn-primary owl-slide-animated owl-slide-cta" style="margin-bottom: 20px; ">
-                                    <a class="scrollNavigation" onclick="MostrarDetalles('desc<?php echo $num ?>', 'imagen<?php echo $num ?>');" href="#detalles">Leer Mas</a>
-                                </button>
                             </div>
                         </div>
                 </div>
@@ -94,11 +204,11 @@ $idhecho = -1;
             </div>
 
             <!-- Controles izquierda-derecha -->
-            <a class="left carousel-control" onclick="ocultarDetalles();" href="#myCarousel" data-slide="prev">
+            <a class="left carousel-control" href="#myCarousel" data-slide="prev">
                 <span class="glyphicon glyphicon-chevron-left"></span>
                 <span class="sr-only">Anterior</span>
             </a>
-            <a class="right carousel-control" onclick="ocultarDetalles();" href="#myCarousel" data-slide="next">
+            <a class="right carousel-control" href="#myCarousel" data-slide="next">
                 <span class="glyphicon glyphicon-chevron-right"></span>
                 <span class="sr-only">Siguiente</span>
             </a>
@@ -106,62 +216,13 @@ $idhecho = -1;
 
         </div>
     </section>
-
     <section style="padding-top: 700px;">
-
-
     </section>
-
-
     <footer id="footer">
-        <?php
-        if (isset($_SESSION['nombre'])) {
-            echo '<div class="container">
-            <div class="padre">
-                <div style="color: black; padding-left: 5%;">
-                    <div class="card-header">
-                        Falta un hecho importante?
-                    </div>
-                    <div>
-                        <h5 class="card-title" style="color:black">AGREGA NUEVOS HECHOS HISTORICOS</h5>
-                        <button class="btn btn-primary owl-slide-animated owl-slide-cta" style="margin-bottom: 20px; ">
-                            <a style="color: black; " class="scrollNavigation" href="insertarLineaTiempo.php">AGREGAR</a>
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>';
-        }
-        ?>
-
-
         <div class="container">
             <div class="copyright">
-                &copy; Copyright <strong>Teoria de Sistemas</strong>. Derechos Reservados
+                &copy; Copyright <strong>Calendario Maya</strong>. Derechos Reservados
             </div>
         </div>
     </footer>
-
-    <script type=" text/javascript">
-        var id1;
-        var im;
-
-        function MostrarDetalles(id, imag) {
-            var desc = document.getElementById(id);
-            desc.style.display = "block";
-            id1 = id;
-            im = imag;
-            var imagen = document.getElementById(imag);
-            imagen.style.display = "none";
-            return true;
-        }
-
-        function ocultarDetalles() {
-            var desc = document.getElementById(id1);
-            desc.style.display = "none";
-            var imagen = document.getElementById(im);
-            imagen.style.display = "block";
-            return true;
-        }
-    </script>
 </body>

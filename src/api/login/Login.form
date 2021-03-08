@@ -111,7 +111,7 @@
                                       <Component id="jLabel28" alignment="0" min="-2" max="-2" attributes="0"/>
                                       <Component id="passFieldContrasenia" alignment="0" max="32767" attributes="0"/>
                                   </Group>
-                                  <Component id="botonSingUp" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="botonSingUp" alignment="0" min="-2" pref="86" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -140,8 +140,8 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jSeparator1" min="-2" pref="7" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="botonSingUp" min="-2" pref="20" max="-2" attributes="0"/>
-                      <EmptySpace pref="52" max="32767" attributes="0"/>
+                      <Component id="botonSingUp" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace pref="47" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -188,7 +188,6 @@
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Recordar Sesion"/>
-                <Property name="opaque" type="boolean" value="false"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="checkBoxRecordarActionPerformed"/>
@@ -200,7 +199,7 @@
                   <Color blue="16" green="e4" red="f7" type="rgb"/>
                 </Property>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Dialog" size="14" style="1"/>
+                  <Font name="Courier 10 Pitch" size="12" style="1"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="SING IN"/>
               </Properties>
@@ -219,6 +218,9 @@
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="16" green="f7" red="9e" type="rgb"/>
+                </Property>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Courier 10 Pitch" size="12" style="1"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="SING UP"/>
               </Properties>

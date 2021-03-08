@@ -8,6 +8,7 @@ package modelos.database;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -21,6 +22,7 @@ import modelos.objetos.Usuario;
 public class UsuarioDb {
     
     public static String VALIDACION_LOGEO = "SELECT * FROM usuario WHERE email = ? AND password = ?";
+    public static String NEW_LOG = "INSERT INTO logs Values(null,?,?)";
     private Mensaje mensajes = new Mensaje();
     
     public void crearUsuario(Usuario usuarioACrear) {//creamos un nuevo usuario
@@ -139,4 +141,18 @@ public class UsuarioDb {
         }
         return aDevolver;
     }
+    public void ingresarLog(Usuario user){
+        System.out.println(LocalDateTime.now());
+        try {
+            PreparedStatement statement = ConexionDb.conexion.prepareStatement(NEW_LOG);
+            statement.setString(1, user.getUsername());
+            
+            statement.setString(2,String.valueOf( LocalDateTime.now()));
+            statement.execute();
+        } catch (SQLException ex) {
+            Logger.getLogger(UsuarioDb.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
+    
 }

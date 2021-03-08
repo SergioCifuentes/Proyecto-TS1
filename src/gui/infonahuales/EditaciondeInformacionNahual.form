@@ -37,7 +37,7 @@
                       <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace pref="295" max="32767" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
           <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
@@ -124,7 +124,6 @@
       <SubComponents>
         <Component class="javax.swing.JEditorPane" name="infHaab">
           <Properties>
-            <Property name="editable" type="boolean" value="false"/>
             <Property name="text" type="java.lang.String" value="El s&#x251c;&#xa1;mbolo del hombre y de la humanidad, de la realizaci&#x251c;&#x2502;n del hombre. S&#x251c;&#xa1;mbolo de continuidad con el pasado, como se ha englobado dentro del ritual. &#xd4;&#xc7;&#xa3;Un buen d&#x251c;&#xa1;a, de la perpetraci&#x251c;&#x2502;n de las ceremonias y costumbres de nuestros antepasados. Es el d&#x251c;&#xa1;a en que se realiza aquella parte del matrimonio en que se pide la novia, y el casamiento cuarenta d&#x251c;&#xa1;as despu&#x251c;&#xae;s, en un d&#x251c;&#xa1;a B&#xd4;&#xc7;&#xd6;atz&#xd4;&#xc7;&#xd6; con un n&#x251c;&#x2551;mero m&#x251c;&#xed;s alto. En 8 B&#xd4;&#xc7;&#xd6;atz&#xd4;&#xc7;&#xd6; se presenta p&#x251c;&#x2551;blicamente el aprendiz de sacerdote maya, y cuarenta d&#x251c;&#xa1;as despu&#x251c;&#xae;s se realiza el agradecimiento. Simboliza el tiempo. Nuestros antepasados, los mayas representaron el tiempo imagin&#x251c;&#xed;ndolo como un hilo enrollado a un carrizo que se encuentra debajo de la tierra. Este hilo se va desenrollando a medida que el tiempo pasa. La historia se teje con el tiempo, as&#x251c;&#xa1; como el hilo teje los vestidos. El ciclo Nuevo Maya, Wajxaqib&#xd4;&#xc7;&#xd6; B&#xd4;&#xc7;&#xd6;atz&#xd4;&#xc7;&#xd6;, en la ceremonia se ameniza con marimba y se baila alrededor del fuego. El B&#xd4;&#xc7;&#xd6;atz&#xd4;&#xc7;&#xd6; amarra y desata. Se le dice B&#xd4;&#xc7;&#xd6;atz&#xd4;&#xc7;&#xd6; porque gira. Y es el talento del ser humano."/>
           </Properties>
         </Component>
@@ -144,7 +143,6 @@
       <SubComponents>
         <Component class="javax.swing.JEditorPane" name="infHaab1">
           <Properties>
-            <Property name="editable" type="boolean" value="false"/>
             <Property name="text" type="java.lang.String" value="HILO, EL D&#x251c;&#xec;A DEL PRINCIPIO DE LA ENERG&#x251c;&#xec;A, DEL TIEMPO Y DEL ESPACIO."/>
           </Properties>
         </Component>

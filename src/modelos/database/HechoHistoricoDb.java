@@ -8,6 +8,7 @@ package modelos.database;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import javax.swing.JOptionPane;
 import modelos.objetos.HechoHistorico;
@@ -81,7 +82,36 @@ public class HechoHistoricoDb {
         }
         return listaHechosHistoricos;
     }
-
+        public LinkedList<HechoHistorico> leerHechosHistoricosPorCategoria(int categoria) { //mostramos todos los hechos historicos y devolvemos en una lista
+        LinkedList<HechoHistorico> listaHechosHistoricos = new LinkedList<>();
+        try {
+            PreparedStatement statement = ConexionDb.conexion.prepareStatement("SELECT * FROM hechohistorico INNER JOIN categorizar ON categorizar.idHechoHistorico=hechohistorico.id WHERE categorizar.idCategoria=?;");
+            statement.setInt(1, categoria);
+            ResultSet resultado = statement.executeQuery();
+            while (resultado.next()) {
+                HechoHistorico usuario = convertirAHH(resultado);
+                listaHechosHistoricos.add(usuario);
+            }
+        } catch (SQLException ex) {
+            mensajes.error("No se leyeron los hechosHistoricos de la DB");
+        }
+        return listaHechosHistoricos;
+    }
+        public ArrayList<String> obtenerCategorias(){
+            ArrayList<String> categorias = new ArrayList<>();
+        try {
+            PreparedStatement statement = ConexionDb.conexion.prepareStatement("SELECT nombre FROM categoria");
+            
+            ResultSet resultado = statement.executeQuery();
+            while (resultado.next()) {
+                
+                categorias.add(resultado.getString(1));
+            }
+        } catch (SQLException ex) {
+            mensajes.error("No se leyeron los hechosHistoricos de la DB");
+        }
+        return categorias;
+        }
     public HechoHistorico leerHechoHistorico(HechoHistorico hhBuscar) {//leemos un hechoHistorico en especifico y lo devolvemos
         HechoHistorico hh = null;
 
@@ -98,6 +128,7 @@ public class HechoHistoricoDb {
         }
         return hh;
     }
+    
 
     public HechoHistorico convertirAHH(ResultSet resultado) {//del resultado de la busqueda obtener el hechohistorico
         HechoHistorico hhDevolver = null;

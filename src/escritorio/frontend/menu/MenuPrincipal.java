@@ -5,8 +5,9 @@
  */
 package escritorio.frontend.menu;
 
+import escritorio.frontend.menu.configAdmin.ConfiguracionAdmin;
 import api.login.ArchivoLogin;
-import frontend.gui.CalendarioHaab;
+import escritorio.frontend.calendarioHaab.CalendarioHaab;
 import gui.infonahuales.VentanaInfoNahuales;
 import java.awt.Color;
 import java.awt.Graphics;
@@ -20,11 +21,13 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.UnsupportedLookAndFeelException;
 import modelos.objetos.Usuario;
-import principal.backend.perfil_usuario.Informacion;
+import escritorio.backend.perfil_usuario.Informacion;
 import principal.frontend.gui.calendari_cholquij.FrameCalendario;
 import principal.frontend.gui.perfil_usuario.FramePerfil;
 import escritorio.frontend.linea_de_tiempo.EventoDeTiempo;
 import escritorio.frontend.linea_de_tiempo.LineaDeTiempo;
+import escritorio.frontend.rueda_calendarica.RuedaCalendarica;
+import javax.swing.border.Border;
 
 /**
  *
@@ -34,6 +37,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
     private Informacion info = new Informacion();
     public final static ImageIcon BG = new ImageIcon("Imagenes/BackGroundMainMenu.jpg");
+    public final static ImageIcon PERFIL = new ImageIcon("Imagenes/mayanIcon.png");
+    public final static ImageIcon CONFIG = new ImageIcon("Imagenes/config.png");
     private Usuario user;
     private ArchivoLogin archivoLogin = new ArchivoLogin();
     /**
@@ -43,8 +48,12 @@ public class MenuPrincipal extends javax.swing.JFrame {
         this.user = user;
         initComponents();
         setLocationRelativeTo(null);       
-        
+        perfilIcon.setIcon(PERFIL);
+        adminConfig.setIcon(CONFIG);
         setBackground();
+        if (user.getRol()!=Usuario.ADMIN) {
+            adminConfig.setVisible(false);
+        }
         
     }
 
@@ -60,90 +69,116 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
         jMenuItem1 = new javax.swing.JMenuItem();
         pnlMenu = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
         btnCholqij = new javax.swing.JButton();
         btnCholqij1 = new javax.swing.JButton();
         btnCholqij2 = new javax.swing.JButton();
         btnNahuales = new javax.swing.JButton();
-        btnPerfil = new javax.swing.JButton();
         btnLinea = new javax.swing.JButton();
+        perfilIcon = new javax.swing.JLabel();
+        adminConfig = new javax.swing.JLabel();
+        btnLinea1 = new javax.swing.JButton();
         btnCerrarSesion = new javax.swing.JButton();
 
         jMenuItem1.setText("jMenuItem1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Menu Principal");
+        setTitle("Calendario Maya");
         setResizable(false);
 
-        pnlMenu.setBackground(new java.awt.Color(51, 153, 255));
+        pnlMenu.setBackground(new java.awt.Color(106, 248, 47));
 
-        jButton1.setBackground(new java.awt.Color(204, 204, 204));
-        jButton1.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(0, 0, 0));
-        jButton1.setText("Calendario Maya");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
-        btnCholqij.setBackground(new java.awt.Color(204, 204, 204));
-        btnCholqij.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        btnCholqij.setBackground(new java.awt.Color(134, 134, 134));
+        btnCholqij.setFont(new java.awt.Font("Courier 10 Pitch", 1, 12)); // NOI18N
         btnCholqij.setForeground(new java.awt.Color(0, 0, 0));
         btnCholqij.setText("Calendario Cholqij");
+        btnCholqij.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnCholqij.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCholqijActionPerformed(evt);
             }
         });
 
-        btnCholqij1.setBackground(new java.awt.Color(204, 204, 204));
-        btnCholqij1.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        btnCholqij1.setBackground(new java.awt.Color(134, 134, 134));
+        btnCholqij1.setFont(new java.awt.Font("Courier 10 Pitch", 1, 12)); // NOI18N
         btnCholqij1.setForeground(new java.awt.Color(0, 0, 0));
         btnCholqij1.setText("Calendario Haab");
+        btnCholqij1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnCholqij1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCholqij1ActionPerformed(evt);
             }
         });
 
-        btnCholqij2.setBackground(new java.awt.Color(204, 204, 204));
-        btnCholqij2.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        btnCholqij2.setBackground(new java.awt.Color(134, 134, 134));
+        btnCholqij2.setFont(new java.awt.Font("Courier 10 Pitch", 1, 12)); // NOI18N
         btnCholqij2.setForeground(new java.awt.Color(0, 0, 0));
         btnCholqij2.setText("Rueda Calendarica");
+        btnCholqij2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnCholqij2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCholqij2ActionPerformed(evt);
             }
         });
 
-        btnNahuales.setBackground(new java.awt.Color(204, 204, 204));
-        btnNahuales.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        btnNahuales.setBackground(new java.awt.Color(134, 134, 134));
+        btnNahuales.setFont(new java.awt.Font("Courier 10 Pitch", 1, 12)); // NOI18N
         btnNahuales.setForeground(new java.awt.Color(0, 0, 0));
         btnNahuales.setText("Nahuales");
+        btnNahuales.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnNahuales.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnNahualesActionPerformed(evt);
             }
         });
 
-        btnPerfil.setBackground(new java.awt.Color(204, 204, 204));
-        btnPerfil.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
-        btnPerfil.setForeground(new java.awt.Color(0, 0, 0));
-        btnPerfil.setText("Perfil");
-        btnPerfil.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnPerfilActionPerformed(evt);
-            }
-        });
-
-        btnLinea.setBackground(new java.awt.Color(204, 204, 204));
-        btnLinea.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        btnLinea.setBackground(new java.awt.Color(134, 134, 134));
+        btnLinea.setFont(new java.awt.Font("Courier 10 Pitch", 1, 12)); // NOI18N
         btnLinea.setForeground(new java.awt.Color(0, 0, 0));
         btnLinea.setText("Linea de Tiempo");
+        btnLinea.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnLinea.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnLineaActionPerformed(evt);
+            }
+        });
+
+        perfilIcon.setBackground(new java.awt.Color(134, 134, 134));
+        perfilIcon.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        perfilIcon.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                perfilIconMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                perfilIconMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                perfilIconMouseExited(evt);
+            }
+        });
+
+        adminConfig.setBackground(new java.awt.Color(254, 254, 254));
+        adminConfig.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        adminConfig.setOpaque(true);
+        adminConfig.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                adminConfigMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                adminConfigMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                adminConfigMouseExited(evt);
+            }
+        });
+
+        btnLinea1.setBackground(new java.awt.Color(134, 134, 134));
+        btnLinea1.setFont(new java.awt.Font("Courier 10 Pitch", 1, 12)); // NOI18N
+        btnLinea1.setForeground(new java.awt.Color(0, 0, 0));
+        btnLinea1.setText("Acerca De");
+        btnLinea1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnLinea1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLinea1ActionPerformed(evt);
             }
         });
 
@@ -153,38 +188,44 @@ public class MenuPrincipal extends javax.swing.JFrame {
             pnlMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlMenuLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jButton1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnCholqij)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(26, 26, 26)
                 .addComponent(btnCholqij1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(30, 30, 30)
                 .addComponent(btnCholqij2)
+                .addGap(18, 18, 18)
+                .addComponent(btnNahuales, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(31, 31, 31)
+                .addComponent(btnLinea, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnLinea1, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
+                .addComponent(adminConfig, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnNahuales)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnLinea)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
-                .addComponent(btnPerfil, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(perfilIcon, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         pnlMenuLayout.setVerticalGroup(
             pnlMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlMenuLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(pnlMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(btnCholqij)
-                    .addComponent(btnCholqij1)
-                    .addComponent(btnCholqij2)
-                    .addComponent(btnNahuales)
-                    .addComponent(btnPerfil)
-                    .addComponent(btnLinea))
-                .addGap(0, 12, Short.MAX_VALUE))
+                .addGroup(pnlMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnCholqij, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnCholqij1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnNahuales, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnCholqij2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(pnlMenuLayout.createSequentialGroup()
+                        .addGroup(pnlMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(adminConfig, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(perfilIcon, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(btnLinea, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnLinea1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
-        btnCerrarSesion.setBackground(new java.awt.Color(204, 204, 204));
-        btnCerrarSesion.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        btnCerrarSesion.setBackground(new java.awt.Color(134, 134, 134));
+        btnCerrarSesion.setFont(new java.awt.Font("Courier 10 Pitch", 1, 12)); // NOI18N
         btnCerrarSesion.setForeground(new java.awt.Color(0, 0, 0));
         btnCerrarSesion.setText("Cerrar Sesion");
         btnCerrarSesion.addActionListener(new java.awt.event.ActionListener() {
@@ -200,14 +241,14 @@ public class MenuPrincipal extends javax.swing.JFrame {
             .addComponent(pnlMenu, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnCerrarSesion)
+                .addComponent(btnCerrarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(pnlMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 446, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 363, Short.MAX_VALUE)
                 .addComponent(btnCerrarSesion)
                 .addContainerGap())
         );
@@ -225,15 +266,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
     FrameCalendario calendarioCholquij = new FrameCalendario();
     calendarioCholquij.setVisible(true);
     }//GEN-LAST:event_btnCholqijActionPerformed
-
-    private void btnPerfilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPerfilActionPerformed
-        //cambiar el parametro nombre por el indicado
-        Usuario user2 = info.buscarDatos(user.getUsername());
-        if(user2 != null){
-            FramePerfil perfil = new FramePerfil(null, true, user);
-            perfil.setVisible(true);
-        } 
-    }//GEN-LAST:event_btnPerfilActionPerformed
     private void setBackground() {
         
         JLabel backgroundLbl = new JLabel();
@@ -245,12 +277,13 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
     }
     private void btnCholqij1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCholqij1ActionPerformed
-        CalendarioHaab calendario = new CalendarioHaab();
+        CalendarioHaab calendario = new CalendarioHaab(user);
         calendario.setVisible(true);
     }//GEN-LAST:event_btnCholqij1ActionPerformed
 
     private void btnCholqij2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCholqij2ActionPerformed
-        // TODO add your handling code here:
+        RuedaCalendarica ruedaCalendarica= new RuedaCalendarica();
+        ruedaCalendarica.setVisible(true);
     }//GEN-LAST:event_btnCholqij2ActionPerformed
 
     private void btnNahualesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNahualesActionPerformed
@@ -269,21 +302,53 @@ public class MenuPrincipal extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_btnCerrarSesionActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void perfilIconMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_perfilIconMouseClicked
+               //cambiar el parametro nombre por el indicado
+        Usuario user2 = info.buscarDatos(user.getUsername());
+        if(user2 != null){  
+            FramePerfil perfil = new FramePerfil(null, true, user);
+            perfil.setVisible(true);
+        } 
+    }//GEN-LAST:event_perfilIconMouseClicked
+
+    private void perfilIconMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_perfilIconMouseEntered
+        perfilIcon.setBorder(javax.swing.BorderFactory.createLineBorder(Color.BLACK,2));
+    }//GEN-LAST:event_perfilIconMouseEntered
+
+    private void perfilIconMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_perfilIconMouseExited
+        perfilIcon.setBorder(javax.swing.BorderFactory.createLineBorder(Color.BLACK,1));
+    }//GEN-LAST:event_perfilIconMouseExited
+
+    private void adminConfigMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_adminConfigMouseClicked
+        ConfiguracionAdmin ca = new ConfiguracionAdmin(this, true,this);
+        ca.setVisible(true);
+    }//GEN-LAST:event_adminConfigMouseClicked
+
+    private void adminConfigMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_adminConfigMouseEntered
+        adminConfig.setBorder(javax.swing.BorderFactory.createLineBorder(Color.BLACK,2));
+    }//GEN-LAST:event_adminConfigMouseEntered
+
+    private void adminConfigMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_adminConfigMouseExited
+        adminConfig.setBorder(javax.swing.BorderFactory.createLineBorder(Color.BLACK,1));
+    }//GEN-LAST:event_adminConfigMouseExited
+
+    private void btnLinea1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLinea1ActionPerformed
+        AcercaDe acercaDe= new AcercaDe(this,true);
+        acercaDe.setVisible(true);
+    }//GEN-LAST:event_btnLinea1ActionPerformed
 
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel adminConfig;
     private javax.swing.JButton btnCerrarSesion;
     private javax.swing.JButton btnCholqij;
     private javax.swing.JButton btnCholqij1;
     private javax.swing.JButton btnCholqij2;
     private javax.swing.JButton btnLinea;
+    private javax.swing.JButton btnLinea1;
     private javax.swing.JButton btnNahuales;
-    private javax.swing.JButton btnPerfil;
-    private javax.swing.JButton jButton1;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JLabel perfilIcon;
     private javax.swing.JPanel pnlMenu;
     // End of variables declaration//GEN-END:variables
 }

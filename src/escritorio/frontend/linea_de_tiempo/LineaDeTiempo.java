@@ -22,8 +22,11 @@ import modelos.objetos.Usuario;
 public class LineaDeTiempo extends javax.swing.JFrame {
 
     private ArrayList<EventoDeTiempo> eventos;
+    private ArrayList<String> categorias=new ArrayList<>();
     private Usuario usuario;
     public final static ImageIcon BG = new ImageIcon("Imagenes/fondoLineaTiempo.jpg");
+    public final static ImageIcon REFRESH = new ImageIcon("Imagenes/refresh.png");
+    public final static ImageIcon SEARCH = new ImageIcon("Imagenes/search.png");
     private int index = 0;
 
     /**
@@ -39,12 +42,32 @@ public class LineaDeTiempo extends javax.swing.JFrame {
         verificarUsuario();
         addPrimerHecho();
         setBackground();
-
+        this.setLocationRelativeTo(null);
+        lblRefresh.setIcon(REFRESH);
+        lblSearch.setIcon(SEARCH);
+        agregarCategorias();
+        categorias= hechoHistoricoDb.obtenerCategorias();
+        agregarCategorias();
     }
-
+public void agregarCategorias(){
+    for (int i = 0; i < categorias.size(); i++) {
+        categoria.addItem(categorias.get(i));
+    }
+}
     public void obtenerHechos() {
         HechoHistoricoDb hechoHistoricoDb = new HechoHistoricoDb();
         LinkedList<HechoHistorico> hechoHistoricos = hechoHistoricoDb.leerHechosHistoricos();
+        eventos = new ArrayList<>();
+
+        for (int i = 0; i < hechoHistoricos.size(); i++) {
+
+            eventos.add(new EventoDeTiempo(hechoHistoricos.get(i)));
+
+        }
+    }
+        public void obtenerHechosPorCategoria() {
+        HechoHistoricoDb hechoHistoricoDb = new HechoHistoricoDb();
+        LinkedList<HechoHistorico> hechoHistoricos = hechoHistoricoDb.leerHechosHistoricosPorCategoria(categoria.getSelectedIndex()+1);
         eventos = new ArrayList<>();
 
         for (int i = 0; i < hechoHistoricos.size(); i++) {
@@ -76,13 +99,17 @@ public class LineaDeTiempo extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
+        btnAnterior = new javax.swing.JButton();
         btnSiguiente = new javax.swing.JButton();
         navMenu4 = new javax.swing.JPanel();
         jButton6 = new javax.swing.JButton();
         btnCholqij4 = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        categoria = new javax.swing.JComboBox<>();
+        lblRefresh = new javax.swing.JLabel();
+        lblSearch = new javax.swing.JLabel();
 
-        jLabel1.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Courier 10 Pitch", 0, 24)); // NOI18N
         jLabel1.setText("Linea De Tiempo");
 
         jPanel1.setPreferredSize(new java.awt.Dimension(735, 300));
@@ -95,14 +122,14 @@ public class LineaDeTiempo extends javax.swing.JFrame {
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 235, Short.MAX_VALUE)
+            .addGap(0, 227, Short.MAX_VALUE)
         );
 
-        jButton1.setText("<");
-        jButton1.setEnabled(false);
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnAnterior.setText("<");
+        btnAnterior.setEnabled(false);
+        btnAnterior.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnAnteriorActionPerformed(evt);
             }
         });
 
@@ -113,22 +140,24 @@ public class LineaDeTiempo extends javax.swing.JFrame {
             }
         });
 
-        navMenu4.setBackground(new java.awt.Color(51, 153, 255));
+        navMenu4.setBackground(new java.awt.Color(106, 248, 47));
 
-        jButton6.setBackground(new java.awt.Color(204, 204, 204));
-        jButton6.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        jButton6.setBackground(new java.awt.Color(134, 134, 134));
+        jButton6.setFont(new java.awt.Font("Courier 10 Pitch", 1, 12)); // NOI18N
         jButton6.setForeground(new java.awt.Color(0, 0, 0));
         jButton6.setText("Agregar Evento");
+        jButton6.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jButton6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton6ActionPerformed(evt);
             }
         });
 
-        btnCholqij4.setBackground(new java.awt.Color(204, 204, 204));
-        btnCholqij4.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        btnCholqij4.setBackground(new java.awt.Color(134, 134, 134));
+        btnCholqij4.setFont(new java.awt.Font("Courier 10 Pitch", 1, 12)); // NOI18N
         btnCholqij4.setForeground(new java.awt.Color(0, 0, 0));
         btnCholqij4.setText("Eliminar Evento");
+        btnCholqij4.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnCholqij4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCholqij4ActionPerformed(evt);
@@ -148,46 +177,80 @@ public class LineaDeTiempo extends javax.swing.JFrame {
         );
         navMenu4Layout.setVerticalGroup(
             navMenu4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(navMenu4Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, navMenu4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(navMenu4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton6)
-                    .addComponent(btnCholqij4))
-                .addGap(0, 6, Short.MAX_VALUE))
+                .addGroup(navMenu4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE)
+                    .addComponent(btnCholqij4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
+
+        jLabel2.setText("Categoria");
+
+        categoria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                categoriaActionPerformed(evt);
+            }
+        });
+
+        lblRefresh.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblRefreshMouseClicked(evt);
+            }
+        });
+
+        lblSearch.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblSearchMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(navMenu4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 343, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(72, 72, 72)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(categoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(28, 28, 28)
+                .addComponent(lblSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(lblRefresh, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(21, 21, 21))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(384, 384, 384)
-                        .addComponent(jButton1)
+                        .addComponent(btnAnterior)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnSiguiente))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(39, 39, 39)
+                        .addGap(25, 25, 25)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 830, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(43, Short.MAX_VALUE))
-            .addComponent(navMenu4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(344, 344, 344))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(navMenu4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 235, Short.MAX_VALUE)
-                .addGap(31, 31, 31)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel2)
+                        .addComponent(categoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblRefresh, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblSearch, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(25, 25, 25)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 227, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
+                    .addComponent(btnAnterior)
                     .addComponent(btnSiguiente))
                 .addContainerGap())
         );
@@ -208,10 +271,10 @@ public class LineaDeTiempo extends javax.swing.JFrame {
         } else {
             btnSiguiente.setEnabled(true);
         }
-        jButton1.setEnabled(true);
+        btnAnterior.setEnabled(true);
     }//GEN-LAST:event_btnSiguienteActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnAnteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnteriorActionPerformed
         index--;
         jPanel1.removeAll();
         jPanel1.add(eventos.get(index));
@@ -219,13 +282,13 @@ public class LineaDeTiempo extends javax.swing.JFrame {
         jPanel1.validate();
         jPanel1.repaint();
         if (index == 0) {
-            jButton1.setEnabled(false);
+            btnAnterior.setEnabled(false);
 
         } else {
-            jButton1.setEnabled(true);
+            btnAnterior.setEnabled(true);
         }
         btnSiguiente.setEnabled(true);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnAnteriorActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         AgregarEvento ae= new AgregarEvento();
@@ -236,8 +299,41 @@ public class LineaDeTiempo extends javax.swing.JFrame {
     private void btnCholqij4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCholqij4ActionPerformed
 
     }//GEN-LAST:event_btnCholqij4ActionPerformed
+
+    private void categoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_categoriaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_categoriaActionPerformed
+
+    private void lblSearchMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSearchMouseClicked
+        obtenerHechosPorCategoria();
+        addPrimerHecho();
+        
+        this.repaint();
+        this.validate();
+        btnAnterior.setEnabled(false);
+        if (eventos.size()>1) {
+            btnSiguiente.setEnabled(true);
+        }else{
+            btnSiguiente.setEnabled(false);
+        }
+    }//GEN-LAST:event_lblSearchMouseClicked
+
+    private void lblRefreshMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblRefreshMouseClicked
+        obtenerHechos();
+        addPrimerHecho();
+        
+        this.repaint();
+        this.validate();
+        System.out.println("hola");
+        btnAnterior.setEnabled(false);
+        if (eventos.size()>1) {
+            btnSiguiente.setEnabled(true);
+        }else{
+            btnSiguiente.setEnabled(false);
+        }
+    }//GEN-LAST:event_lblRefreshMouseClicked
     private void addPrimerHecho() {
-        System.out.println(eventos.size());
+        jPanel1.removeAll();
         if (eventos.size() > 0) {
             jPanel1.add(eventos.get(0));
             eventos.get(0).setVisible(true);
@@ -259,12 +355,16 @@ public class LineaDeTiempo extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAnterior;
     private javax.swing.JButton btnCholqij4;
     private javax.swing.JButton btnSiguiente;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JComboBox<String> categoria;
     private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel lblRefresh;
+    private javax.swing.JLabel lblSearch;
     private javax.swing.JPanel navMenu4;
     // End of variables declaration//GEN-END:variables
 }
